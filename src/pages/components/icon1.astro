@@ -2,53 +2,42 @@
 // empty frontmatter for future use
 ---
 
-<!-- Square icon from Lucide -->
+<!-- Sun icon from Lucide -->
 
-<svg id="theSquare"
-xmlns="http://www.w3.org/2000/svg"
-width="24"
-height="24"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"
-class="lucide lucide-square-icon lucide-square">
-
-    <rect width="18" height="18" x="3" y="3" rx="2"/>
-
-</svg>
-
+ <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle id="core" cx="12" cy="12" r="4" stroke="#F59E0B"/>
+    <path id="ray-1" d="M12 2v2"                stroke="#F59E0B"/>
+    <path id="ray-2" d="M12 20v2"               stroke="#F59E0B"/>
+    <path id="ray-3" d="m4.93 4.93 1.41 1.41"   stroke="#F59E0B"/>
+    <path id="ray-4" d="m17.66 17.66 1.41 1.41" stroke="#F59E0B"/>
+    <path id="ray-5" d="M2 12h2"                stroke="#F59E0B"/>
+    <path id="ray-6" d="M20 12h2"               stroke="#F59E0B"/>
+    <path id="ray-7" d="m6.34 17.66-1.41 1.41"  stroke="#F59E0B"/>
+    <path id="ray-8" d="m19.07 4.93-1.41 1.41"  stroke="#F59E0B"/>
+  </svg>
+  
 <!-- GSAP Scripting -->
 <script>
     import gsap from 'gsap';
 
-    gsap.from('#theSquare rect', {
-        scale: 0,
-        transformOrigin: 'center',
-        duration: 0.6,
-        ease: 'back.out(1.7)'
+   const rays = ['#ray-1','#ray-2','#ray-3','#ray-4','#ray-5','#ray-6','#ray-7','#ray-8'];
+ 
+    // Slow spin
+    gsap.to('#sun', {
+      rotation: 360,
+      transformOrigin: "50% 50%",
+      duration: 12,
+      repeat: -1,
+      ease: "none"
     });
-
-    // Hover animations
-    const square = document.querySelector('#theSquare');
-
-    square.addEventListener('mouseenter', () => {
-        gsap.to('#theSquare rect', {
-            scale: 1.2,
-            transformOrigin: 'center',
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-
-    square.addEventListener('mouseleave', () => {
-        gsap.to('#theSquare rect', {
-            scale: 1,
-            transformOrigin: 'center',
-            duration: 0.3,
-            ease: 'power2.in'
-        });
+ 
+    // Rays 
+    gsap.to(rays, {
+      attr: { 'stroke-width': '2.8', stroke: '#FDE68A' },
+      duration: 0.6,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      stagger: 0.1
     });
 </script>

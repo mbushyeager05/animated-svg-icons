@@ -2,54 +2,35 @@
 // empty frontmatter for future use
 ---
 
-<!-- Diamond icon from Lucide -->
+<!--  Batteryicon from Lucide -->
 
-<svg id="theDiamond"
-xmlns="http://www.w3.org/2000/svg"
-width="24"
-height="24"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"
-class="lucide lucide-diamond-icon lucide-diamond">
+<svg id="battery" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect id="body"  x="2" y="6" width="16" height="12" rx="2" stroke="#666767"/>
+    <path id="tip"   d="M22 14v-4"  stroke="#666767"/>
+    <path id="bar-1" d="M6 10v4"   stroke="#666767"/>
+    <path id="bar-2" d="M10 10v4"  stroke="#666767"/>
+    <path id="bar-3" d="M14 10v4"  stroke="#666767"/>
+  </svg>
 
-    <path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41L13.7 2.71a2.41 2.41 0 0 0-3.41 0Z"/>
-
-</svg>
 
 <!-- GSAP Scripting -->
 <script>
     import gsap from 'gsap';
 
-    gsap.from('#theDiamond path', {
-        rotation: 180,
-        transformOrigin: 'center',
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out'
-    });
+      const bars = ['#bar-1', '#bar-2', '#bar-3'];
+ 
+    gsap.set(bars, { attr: { stroke: '#d1d5db' } });
+    gsap.set('#body', { attr: { stroke: '#d1d5db' } });
+ 
+    gsap.timeline({ repeat: -1, repeatDelay: 0.5 })
+      .to('#bar-1',  { attr: { stroke: '#DD0426' }, duration: 0.4, ease: "power2.out" })
+      .to('#body',   { attr: { stroke: '#22c55e' }, duration: 0.3 }, "<")
+      .to('#bar-2',  { attr: { stroke: '#F4B942' }, duration: 0.4, ease: "power2.out" }, "+=0.4")
+      .to('#bar-3',  { attr: { stroke: '#22c55e' }, duration: 0.4, ease: "power2.out" }, "+=0.4")
+      .to('#battery', { scale: 1.08, transformOrigin: "50% 50%", duration: 0.3, ease: "power2.out" }, "+=0.2")
+      .to(['#body', '#tip', ...bars], { attr: { stroke: '#86efac' }, duration: 0.3 }, "<")
+      .to('#battery', { scale: 1, transformOrigin: "50% 50%", duration: 0.4, ease: "power2.in" }, "+=0.4")
+      .to(['#body', '#tip', ...bars], { attr: { stroke: '#d1d5db' }, duration: 0.3 }, "+=0.3");
 
-    // Hover animations
-    const diamond = document.querySelector('#theDiamond');
 
-    diamond.addEventListener('mouseenter', () => {
-        gsap.to('#theDiamond path', {
-            rotation: 45,
-            transformOrigin: 'center',
-            duration: 0.4,
-            ease: 'power2.out'
-        });
-    });
-
-    diamond.addEventListener('mouseleave', () => {
-        gsap.to('#theDiamond path', {
-            rotation: 0,
-            transformOrigin: 'center',
-            duration: 0.4,
-            ease: 'power2.in'
-        });
-    });
 </script>

@@ -2,51 +2,36 @@
 // empty frontmatter for future use
 ---
 
-<!-- Triangle icon from Lucide -->
+<!-- EV Charager icon from Lucide -->
 
-<svg id="theTriangle"
-xmlns="http://www.w3.org/2000/svg"
-width="24"
-height="24"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"
-class="lucide lucide-triangle-icon lucide-triangle">
-
-    <path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-
-</svg>
+  
+  <svg id="ev" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path id="cable" d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 4 0v-6.998a2 2 0 0 0-.59-1.42L18 5" stroke="#666767"/>
+    <path id="body"  d="M14 21V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v16"                              stroke="#666767"/>
+    <path id="base"  d="M2 21h13"                                                                 stroke="#666767"/>
+    <path id="top"   d="M3 7h11"                                                                  stroke="#666767"/>
+    <path id="bolt"  d="m9 11-2 3h3l-2 3"                                                         stroke="#F59E0B"/>
+  </svg>
 
 <!-- GSAP Scripting -->
 <script>
     import gsap from 'gsap';
 
-    gsap.from('#theTriangle path', {
-        y: 200,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power3.out'
+     // Bolt 
+    gsap.timeline({ repeat: -1, repeatDelay: 0.3 })
+      .to('#bolt', { attr: { stroke: '#FDE68A', 'stroke-width': '2.4' }, duration: 0.6, ease: "power2.out" })
+      .to('#bolt', { attr: { stroke: '#F59E0B', 'stroke-width': '2'   }, duration: 0.7, ease: "power2.in" })
+      .to({}, { duration: 0.8 });
+ 
+    // Body and cable 
+    gsap.to(['#body', '#cable', '#base', '#top'], {
+      attr: { stroke: '#22c55e' },
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: 0.5
     });
 
-    // Hover animations
-    const triangle = document.querySelector('#theTriangle');
 
-    triangle.addEventListener('mouseenter', () => {
-        gsap.to('#theTriangle path', {
-            y: -4,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-
-    triangle.addEventListener('mouseleave', () => {
-        gsap.to('#theTriangle path', {
-            y: 0,
-            duration: 0.3,
-            ease: 'power2.in'
-        });
-    });
 </script>
